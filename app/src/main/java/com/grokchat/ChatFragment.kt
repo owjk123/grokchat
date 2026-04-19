@@ -11,6 +11,7 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
@@ -23,6 +24,7 @@ import java.io.ByteArrayOutputStream
 
 class ChatViewModel : ViewModel() {
     val messages = mutableListOf<Message>()
+    var conversationId: String? = null
 }
 
 class ChatFragment : Fragment() {
@@ -59,17 +61,85 @@ class ChatFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext()).also { it.stackFromEnd = true }
             adapter = chatAdapter
         }
+        
+        // Load existing conversation or create new one
+        loadOrCreateConversation()
+        
         chatAdapter.submitList(vm.messages.toList())
         b.btnSend.setOnClickListener { send() }
-        b.btnNewChat.setOnClickListener { clearChat() }
+        b.btnNewChat.setOnClickListener { startNewConversation() }
         b.btnAttach.setOnClickListener { showAttachMenu(it) }
         b.btnRemoveAttachment.setOnClickListener { clearAttachment() }
         setupRoleSelector()
     }
 
+    override fun onPause() {
+        super.onPause()
+        saveCurrentConversation()
+    }
+
     override fun onResume() {
         super.onResume()
         setupRoleSelector()
+    }
+
+    private fun loadOrCreateConversation() {
+        val ctx = requireContext()
+        val currentConvId = Prefs.getCurrentConversationId(ctx)
+        
+        if (currentConvId != null) {
+            // Load existing conversation
+            val conversation = ConversationManager.getConversation(ctx, currentConvId)
+            if (conversation != null) {
+                vm.conversationId = conversation.id
+                vm.messages.clear()
+                vm.messages.addAll(conversation.messages)
+                chatAdapter.submitList(vm.messages.toList())
+                return
+            }
+        }
+        
+        // Create new conversation
+        startNewConversation()
+    }
+
+    private fun startNewConversation() {
+        saveCurrentConversation()
+        
+        val ctx = requireContext()
+        val activeRoleId = Prefs.getActiveRoleId(ctx) ?: roles.firstOrNull()?.id ?: ""
+        
+        val conversation = ConversationManager.createNewConversation(ctx, activeRoleId)
+        vm.conversationId = conversation.id
+        Prefs.setCurrentConversationId(ctx, conversation.id)
+        
+        vm.messages.clear()
+        chatAdapter.submitList(emptyList())
+    }
+
+    private fun saveCurrentConversation() {
+        val convId = vm.conversationId ?: return
+        if (vm.messages.isEmpty()) {
+            // Don't save empty conversations
+            ConversationManager.deleteConversation(requireContext(), convId)
+            return
+        }
+        
+        // Generate title from first message if empty
+        val firstUserMessage = vm.messages.firstOrNull { it.role == "user" }
+        val title = if (firstUserMessage != null) {
+            ConversationManager.generateTitle(firstUserMessage.content)
+        } else {
+            ""
+        }
+        
+        val conversation = Conversation(
+            id = convId,
+            title = title,
+            roleId = Prefs.getActiveRoleId(requireContext()) ?: "",
+            messages = vm.messages.toList()
+        )
+        ConversationManager.saveConversation(requireContext(), conversation)
     }
 
     private fun setupRoleSelector() {
@@ -88,7 +158,7 @@ class ChatFragment : Fragment() {
                 if (prev != selected.id) {
                     Prefs.setActiveRoleId(ctx, selected.id)
                     b.tvCurrentRole.text = selected.name
-                    clearChat()
+                    startNewConversation()
                 }
                 true
             }
@@ -201,70 +271,102 @@ class ChatFragment : Fragment() {
         pendingFileContent = null
         pendingFileName = null
         b.attachmentPreview.visibility = View.GONE
-        b.ivPreviewThumb.setImageBitmap(null)
     }
 
-    // ── Send ─────────────────────────────────────────────────────────────────
+    // ── Send ───────────────────────────────────────────────────────────────
 
     private fun send() {
-        val ctx = requireContext()
-        val text = b.etInput.text.toString().trim()
-        val hasAttachment = pendingImageBase64 != null || pendingFileContent != null
-        if (text.isEmpty() && !hasAttachment) return
+        val input = b.etMessage.text?.toString()?.trim() ?: ""
+        if (input.isEmpty() && pendingImageBase64 == null && pendingFileContent == null) return
 
-        val apiKey = Prefs.getApiKey(ctx)
+        val apiKey = Prefs.getApiKey(requireContext())
         if (apiKey.isEmpty()) {
-            Toast.makeText(ctx, getString(R.string.please_set_api_key), Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.please_set_api_key), Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Build message with optional attachment
-        val messageText = when {
-            pendingFileContent != null -> {
-                val content = "📄 $pendingFileName\n\n$pendingFileContent"
-                if (text.isNotEmpty()) "$text\n\n$content" else content
+        // Build user message
+        val userContent = buildString {
+            if (input.isNotEmpty()) append(input)
+            if (pendingFileContent != null) {
+                if (isNotEmpty()) append("\n\n")
+                append("[文件内容]\n").append(pendingFileContent)
             }
-            else -> text
         }
-        val userMsg = Message("user", messageText, pendingImageBase64, pendingImageMime.takeIf { pendingImageBase64 != null })
 
-        b.etInput.setText("")
-        clearAttachment()
+        val userMsg = Message(
+            role = "user",
+            content = userContent,
+            imageBase64 = pendingImageBase64,
+            imageMimeType = pendingImageMime
+        )
+
         vm.messages.add(userMsg)
-        refresh()
+        chatAdapter.submitList(vm.messages.toList())
+        scrollToBottom()
 
-        b.btnSend.isEnabled = false
+        clearAttachment()
+        b.etMessage.text?.clear()
+
+        // Save conversation after user sends message
+        saveCurrentConversation()
+
+        // Build assistant message placeholder
+        val assistantMsg = Message(role = "assistant", content = "")
+        vm.messages.add(assistantMsg)
+        chatAdapter.submitList(vm.messages.toList())
+        scrollToBottom()
+
         b.progressBar.visibility = View.VISIBLE
-
-        val endpoint = Prefs.getEndpoint(ctx)
-        val model = Prefs.getModel(ctx)
-        val activeId = Prefs.getActiveRoleId(ctx) ?: roles.firstOrNull()?.id
-        val activeRole = roles.find { it.id == activeId } ?: roles.firstOrNull()
-
-        val payload = buildList {
-            if (!activeRole?.systemPrompt.isNullOrEmpty())
-                add(Message("system", activeRole!!.systemPrompt))
-            addAll(vm.messages)
-        }
+        b.btnSend.isEnabled = false
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val reply = GrokApiClient.chat(endpoint, apiKey, model, payload)
-                vm.messages.add(Message("assistant", reply))
-                refresh()
+                val ctx = requireContext()
+                val roleId = Prefs.getActiveRoleId(ctx) ?: ""
+                val role = roles.find { it.id == roleId }
+                val systemPrompt = role?.systemPrompt ?: ""
+
+                val reply = withContext(Dispatchers.IO) {
+                    GrokApiClient.chat(
+                        apiKey = apiKey,
+                        messages = vm.messages.dropLast(1).toList(), // Exclude placeholder
+                        systemPrompt = systemPrompt,
+                        endpoint = Prefs.getEndpoint(ctx),
+                        model = Prefs.getModel(ctx)
+                    )
+                }
+
+                if (reply != null) {
+                    val lastIdx = vm.messages.lastIndex
+                    vm.messages[lastIdx] = assistantMsg.copy(content = reply)
+                    chatAdapter.submitList(vm.messages.toList())
+                    scrollToBottom()
+                    
+                    // Save conversation after assistant responds
+                    saveCurrentConversation()
+                } else {
+                    vm.messages.removeAt(lastIdx)
+                    chatAdapter.submitList(vm.messages.toList())
+                }
             } catch (e: Exception) {
-                Toast.makeText(ctx, "错误：${e.message}", Toast.LENGTH_LONG).show()
+                val lastIdx = vm.messages.lastIndex
+                vm.messages.removeAt(lastIdx)
+                chatAdapter.submitList(vm.messages.toList())
+                Toast.makeText(requireContext(), e.message ?: "Error", Toast.LENGTH_SHORT).show()
             } finally {
-                b.btnSend.isEnabled = true
                 b.progressBar.visibility = View.GONE
+                b.btnSend.isEnabled = true
             }
         }
     }
 
-    private fun refresh() {
-        chatAdapter.submitList(vm.messages.toList())
-        if (chatAdapter.itemCount > 0)
-            b.recyclerView.scrollToPosition(chatAdapter.itemCount - 1)
+    private fun scrollToBottom() {
+        b.recyclerView.post {
+            if (vm.messages.isNotEmpty()) {
+                b.recyclerView.smoothScrollToPosition(vm.messages.size - 1)
+            }
+        }
     }
 
     override fun onDestroyView() {

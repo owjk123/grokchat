@@ -37,10 +37,11 @@ class MainActivity : AppCompatActivity() {
         } else {
             val frag = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
             supportActionBar?.title = when (frag) {
-                is SettingsFragment  -> getString(R.string.action_settings)
-                is RolesFragment     -> getString(R.string.roles_title)
-                is EditRoleFragment  -> getString(R.string.edit_role)
-                else                 -> getString(R.string.app_name)
+                is SettingsFragment      -> getString(R.string.action_settings)
+                is RolesFragment          -> getString(R.string.roles_title)
+                is EditRoleFragment       -> getString(R.string.edit_role)
+                is ConversationListFragment -> getString(R.string.conversations_title)
+                else                      -> getString(R.string.app_name)
             }
             invalidateOptionsMenu()
         }
@@ -59,6 +60,10 @@ class MainActivity : AppCompatActivity() {
                 onBackPressedDispatcher.onBackPressed()
                 true
             }
+            R.id.action_history -> {
+                showConversationList()
+                true
+            }
             R.id.action_roles -> {
                 supportFragmentManager.commit {
                     replace(R.id.fragmentContainer, RolesFragment())
@@ -74,6 +79,31 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showConversationList() {
+        val convListFragment = ConversationListFragment()
+        convListFragment.setOnConversationSelectedListener { conversation ->
+            // Load selected conversation
+            Prefs.setCurrentConversationId(this, conversation.id)
+            supportFragmentManager.popBackStack()
+            supportFragmentManager.commit {
+                replace(R.id.fragmentContainer, ChatFragment())
+            }
+        }
+        convListFragment.setOnNewConversationListener {
+            // Create new conversation
+            Prefs.setCurrentConversationId(this, null)
+            supportFragmentManager.popBackStack()
+            supportFragmentManager.commit {
+                replace(R.id.fragmentContainer, ChatFragment())
+            }
+        }
+        
+        supportFragmentManager.commit {
+            replace(R.id.fragmentContainer, convListFragment)
+            addToBackStack(null)
         }
     }
 }

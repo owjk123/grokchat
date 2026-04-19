@@ -31,4 +31,18 @@
     <string name="please_set_api_key">请先在「设置」中配置 API 密钥</string>
     <string name="attachment_too_large">文件过大，请选择 50KB 以内的文本文件</string>
     <string name="unsupported_file">不支持该文件类型，请选择图片或文本文件</string>
+    <!-- 新增功能 -->
+    <string name="copied_to_clipboard">已复制到剪贴板</string>
+    <string name="conversations_title">对话历史</string>
+    <string name="no_conversations">暂无对话记录\n点击右上角开始新对话</string>
+    <string name="new_conversation">新对话</string>
+    <string name="message_count">%d 条消息</string>
+    <string name="delete_conversation_title">删除对话</string>
+    <string name="delete_conversation_message">确定要删除这个对话吗？此操作不可恢复。</string>
+    <string name="conversation_icon">对话图标</string>
+    <string name="assistant">助手</string>
+    <string name="change_avatar">更换头像</string>
+    <string name="avatar_updated">头像已更新</string>
+    <string name="avatar_removed">已恢复默认头像</string>
+    <string name="chat_history">对话历史</string>
 </resources>

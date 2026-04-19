@@ -66,4 +66,30 @@ object Prefs {
     fun getActiveRoleId(ctx: Context): String? = prefs(ctx).getString("active_role_id", null)
     fun setActiveRoleId(ctx: Context, id: String) =
         prefs(ctx).edit().putString("active_role_id", id).apply()
+
+    // Grok头像 - Base64编码存储
+    fun getGrokAvatar(ctx: Context): String? {
+        val avatar = prefs(ctx).getString("grok_avatar", null)
+        return if (avatar.isNullOrEmpty() || avatar == "null") null else avatar
+    }
+    
+    fun setGrokAvatar(ctx: Context, avatarBase64: String?) {
+        if (avatarBase64 == null) {
+            prefs(ctx).edit().remove("grok_avatar").apply()
+        } else {
+            prefs(ctx).edit().putString("grok_avatar", avatarBase64).apply()
+        }
+    }
+    
+    // 当前对话ID
+    fun getCurrentConversationId(ctx: Context): String? = 
+        prefs(ctx).getString("current_conversation_id", null)
+    
+    fun setCurrentConversationId(ctx: Context, id: String?) {
+        if (id == null) {
+            prefs(ctx).edit().remove("current_conversation_id").apply()
+        } else {
+            prefs(ctx).edit().putString("current_conversation_id", id).apply()
+        }
+    }
 }
