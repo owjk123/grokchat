@@ -1,0 +1,3 @@
+-keep class org.json.** { *; }
+-keepattributes *Annotation*
+-keepclassmembers class kotlinx.coroutines.** { volatile <fields>; }
