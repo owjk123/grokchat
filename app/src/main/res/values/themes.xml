@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Style alias for backward compatibility -->
+    <style name="GrokChat" parent="Theme.GrokChat" />
+
     <style name="Theme.GrokChat" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/colorGold</item>
         <item name="colorPrimaryVariant">@color/colorGoldDark</item>
