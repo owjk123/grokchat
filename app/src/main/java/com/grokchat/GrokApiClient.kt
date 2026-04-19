@@ -14,7 +14,8 @@ object GrokApiClient {
         endpoint: String,
         apiKey: String,
         model: String,
-        messages: List<Message>
+        messages: List<Message>,
+        systemPrompt: String = ""
     ): String = withContext(Dispatchers.IO) {
         val conn = URL("$endpoint/v1/chat/completions").openConnection() as HttpURLConnection
         try {
@@ -28,6 +29,12 @@ object GrokApiClient {
             val body = JSONObject().apply {
                 put("model", model)
                 put("messages", JSONArray().apply {
+                    if (systemPrompt.isNotEmpty()) {
+                        put(JSONObject().apply {
+                            put("role", "system")
+                            put("content", systemPrompt)
+                        })
+                    }
                     messages.forEach { msg -> put(buildMessageObject(msg)) }
                 })
             }.toString()

@@ -276,7 +276,7 @@ class ChatFragment : Fragment() {
     // ── Send ───────────────────────────────────────────────────────────────
 
     private fun send() {
-        val input = b.etMessage.text?.toString()?.trim() ?: ""
+        val input = b.etInput.text?.toString()?.trim() ?: ""
         if (input.isEmpty() && pendingImageBase64 == null && pendingFileContent == null) return
 
         val apiKey = Prefs.getApiKey(requireContext())
@@ -306,7 +306,7 @@ class ChatFragment : Fragment() {
         scrollToBottom()
 
         clearAttachment()
-        b.etMessage.text?.clear()
+        b.etInput.text?.clear()
 
         // Save conversation after user sends message
         saveCurrentConversation()
@@ -337,8 +337,8 @@ class ChatFragment : Fragment() {
                     )
                 }
 
+                val lastIdx = vm.messages.lastIndex
                 if (reply != null) {
-                    val lastIdx = vm.messages.lastIndex
                     vm.messages[lastIdx] = assistantMsg.copy(content = reply)
                     chatAdapter.submitList(vm.messages.toList())
                     scrollToBottom()
