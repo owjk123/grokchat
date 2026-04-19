@@ -1,6 +1,9 @@
 package com.grokchat
 
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -29,13 +32,35 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(DIFF) {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val msg = getItem(position)
         when (holder) {
-            is UserVH -> holder.binding.tvContent.text = msg.content
-            is AssistantVH -> holder.binding.tvContent.text = msg.content
+            is UserVH -> holder.bind(getItem(position))
+            is AssistantVH -> holder.binding.tvContent.text = getItem(position).content
         }
     }
 
-    class UserVH(val binding: ItemMessageUserBinding) : RecyclerView.ViewHolder(binding.root)
+    class UserVH(val binding: ItemMessageUserBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(msg: Message) {
+            if (msg.imageBase64 != null) {
+                try {
+                    val bytes = Base64.decode(msg.imageBase64, Base64.DEFAULT)
+                    val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                    binding.ivAttachment.setImageBitmap(bmp)
+                    binding.ivAttachment.visibility = View.VISIBLE
+                } catch (e: Exception) {
+                    binding.ivAttachment.visibility = View.GONE
+                }
+            } else {
+                binding.ivAttachment.visibility = View.GONE
+            }
+
+            if (msg.content.isNotEmpty()) {
+                binding.tvContent.text = msg.content
+                binding.tvContent.visibility = View.VISIBLE
+            } else {
+                binding.tvContent.visibility = View.GONE
+            }
+        }
+    }
+
     class AssistantVH(val binding: ItemMessageAssistantBinding) : RecyclerView.ViewHolder(binding.root)
 }

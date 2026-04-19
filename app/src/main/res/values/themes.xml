@@ -1,9 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.GrokChat" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+    <style name="Theme.GrokChat" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/colorGold</item>
+        <item name="colorPrimaryVariant">@color/colorGoldDark</item>
+        <item name="colorOnPrimary">@color/colorBackground</item>
+        <item name="colorSurface">@color/colorCard</item>
+        <item name="colorOnSurface">@color/colorTextPrimary</item>
+        <item name="colorBackground">@color/colorBackground</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="android:statusBarColor">@color/colorBackground</item>
+        <item name="android:navigationBarColor">@color/colorBackground</item>
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
+        <item name="android:textColorHint">@color/colorTextSecondary</item>
+        <item name="materialAlertDialogTheme">@style/Theme.GrokChat.AlertDialog</item>
+        <item name="textInputStyle">@style/Widget.GrokChat.TextInput</item>
+        <item name="popupMenuStyle">@style/Widget.GrokChat.PopupMenu</item>
+    </style>
+
+    <style name="Theme.GrokChat.AlertDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="colorSurface">@color/colorCard</item>
+        <item name="colorOnSurface">@color/colorTextPrimary</item>
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:background">@color/colorCard</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.GrokChat.GoldButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.GrokChat.TextButton</item>
+    </style>
+
+    <style name="Widget.GrokChat.GoldButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/colorGold</item>
+        <item name="android:textColor">@color/colorBackground</item>
+    </style>
+
+    <style name="Widget.GrokChat.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/colorGold</item>
+    </style>
+
+    <style name="Widget.GrokChat.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/colorGold</item>
+        <item name="hintTextColor">@color/colorGoldLight</item>
+        <item name="android:textColorHint">@color/colorTextSecondary</item>
+        <item name="boxBackgroundColor">@color/colorSurface</item>
+        <item name="boxStrokeErrorColor">@color/colorError</item>
+    </style>
+
+    <style name="Widget.GrokChat.PopupMenu" parent="Widget.MaterialComponents.PopupMenu">
+        <item name="android:popupBackground">@color/colorCard</item>
+    </style>
+
+    <style name="GrokChat.ToolbarTitle">
+        <item name="android:textColor">@color/colorGold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:letterSpacing">0.15</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 </resources>

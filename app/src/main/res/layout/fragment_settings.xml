@@ -2,32 +2,40 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="24dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_api_key"
-            android:textStyle="bold" />
+            android:textColor="@color/colorGold"
+            android:textSize="11sp"
+            android:letterSpacing="0.12"
+            android:textAllCaps="true" />
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.GrokChat.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp">
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etApiKey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_api_key"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textColor="@color/colorTextPrimary"
+                android:textColorHint="@color/colorTextSecondary"
+                android:background="@android:color/transparent" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -35,33 +43,46 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_endpoint"
-            android:textStyle="bold" />
+            android:textColor="@color/colorGold"
+            android:textSize="11sp"
+            android:letterSpacing="0.12"
+            android:textAllCaps="true" />
 
         <Spinner
             android:id="@+id/spinnerEndpoint"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp"
+            android:background="@color/colorCard"
+            android:paddingStart="12dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_model"
-            android:textStyle="bold" />
+            android:textColor="@color/colorGold"
+            android:textSize="11sp"
+            android:letterSpacing="0.12"
+            android:textAllCaps="true" />
 
         <Spinner
             android:id="@+id/spinnerModel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="24dp" />
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp"
+            android:background="@color/colorCard"
+            android:paddingStart="12dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSave"
+            style="@style/Widget.GrokChat.GoldButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/save" />
+            android:layout_height="52dp"
+            android:text="@string/save"
+            android:letterSpacing="0.1"
+            android:textAllCaps="true" />
 
     </LinearLayout>
 

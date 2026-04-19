@@ -2,25 +2,30 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="24dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_role_name"
-            android:textStyle="bold" />
+            android:textColor="@color/colorGold"
+            android:textSize="11sp"
+            android:letterSpacing="0.12"
+            android:textAllCaps="true" />
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.GrokChat.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp">
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etRoleName"
@@ -28,7 +33,10 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_role_name"
                 android:inputType="text"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textColor="@color/colorTextPrimary"
+                android:textColorHint="@color/colorTextSecondary"
+                android:background="@android:color/transparent" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -36,13 +44,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_system_prompt"
-            android:textStyle="bold" />
+            android:textColor="@color/colorGold"
+            android:textSize="11sp"
+            android:letterSpacing="0.12"
+            android:textAllCaps="true" />
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.GrokChat.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="24dp">
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSystemPrompt"
@@ -51,15 +63,21 @@
                 android:hint="@string/hint_system_prompt"
                 android:inputType="textMultiLine"
                 android:lines="5"
-                android:gravity="top" />
+                android:gravity="top|start"
+                android:textColor="@color/colorTextPrimary"
+                android:textColorHint="@color/colorTextSecondary"
+                android:background="@android:color/transparent" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveRole"
+            style="@style/Widget.GrokChat.GoldButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/save" />
+            android:layout_height="52dp"
+            android:text="@string/save"
+            android:letterSpacing="0.1"
+            android:textAllCaps="true" />
 
     </LinearLayout>
 

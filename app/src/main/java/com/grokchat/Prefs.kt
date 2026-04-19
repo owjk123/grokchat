@@ -16,10 +16,11 @@ object Prefs {
 
     val MODELS = listOf("grok-4.20-beta", "grok-3", "grok-2-latest")
 
+    // Fixed IDs so active-role preference survives restarts
     val DEFAULT_ROLES = listOf(
-        Role(name = "Assistant",     systemPrompt = ""),
-        Role(name = "Coding Helper", systemPrompt = "You are an expert software engineer. Help with coding tasks concisely."),
-        Role(name = "Translator",    systemPrompt = "You are a professional translator. Translate text as requested, preserving tone.")
+        Role(id = "builtin-assistant",  name = "助手",   systemPrompt = ""),
+        Role(id = "builtin-coder",      name = "代码专家", systemPrompt = "你是一位经验丰富的软件工程师，请简洁、精准地协助解决编程问题。"),
+        Role(id = "builtin-translator", name = "翻译专家", systemPrompt = "你是一位专业翻译，请保持原文语气，准确翻译为目标语言。")
     )
 
     private fun prefs(ctx: Context) =
@@ -37,7 +38,8 @@ object Prefs {
     fun setModel(ctx: Context, v: String) = prefs(ctx).edit().putString("model", v).apply()
 
     fun getRoles(ctx: Context): MutableList<Role> {
-        val json = prefs(ctx).getString("roles", null) ?: return DEFAULT_ROLES.toMutableList()
+        val json = prefs(ctx).getString("roles", null)
+            ?: return DEFAULT_ROLES.toMutableList().also { saveRoles(ctx, it) }
         return try {
             val arr = JSONArray(json)
             (0 until arr.length()).map {
@@ -45,7 +47,7 @@ object Prefs {
                 Role(o.getString("id"), o.getString("name"), o.getString("systemPrompt"))
             }.toMutableList()
         } catch (e: Exception) {
-            DEFAULT_ROLES.toMutableList()
+            DEFAULT_ROLES.toMutableList().also { saveRoles(ctx, it) }
         }
     }
 

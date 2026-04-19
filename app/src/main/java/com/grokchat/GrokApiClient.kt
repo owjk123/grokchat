@@ -28,12 +28,7 @@ object GrokApiClient {
             val body = JSONObject().apply {
                 put("model", model)
                 put("messages", JSONArray().apply {
-                    messages.forEach { msg ->
-                        put(JSONObject().apply {
-                            put("role", msg.role)
-                            put("content", msg.content)
-                        })
-                    }
+                    messages.forEach { msg -> put(buildMessageObject(msg)) }
                 })
             }.toString()
 
@@ -52,6 +47,26 @@ object GrokApiClient {
                 .getString("content")
         } finally {
             conn.disconnect()
+        }
+    }
+
+    private fun buildMessageObject(msg: Message): JSONObject = JSONObject().apply {
+        put("role", msg.role)
+        // Use multimodal array content when image is attached
+        if (msg.imageBase64 != null) {
+            put("content", JSONArray().apply {
+                if (msg.content.isNotEmpty()) {
+                    put(JSONObject().apply { put("type", "text"); put("text", msg.content) })
+                }
+                put(JSONObject().apply {
+                    put("type", "image_url")
+                    put("image_url", JSONObject().apply {
+                        put("url", "data:${msg.imageMimeType ?: "image/jpeg"};base64,${msg.imageBase64}")
+                    })
+                })
+            })
+        } else {
+            put("content", msg.content)
         }
     }
 }

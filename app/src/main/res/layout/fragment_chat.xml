@@ -4,9 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@color/colorBackground">
 
-    <!-- Role selector bar -->
+    <!-- Role bar -->
     <LinearLayout
         android:id="@+id/roleBar"
         android:layout_width="0dp"
@@ -14,10 +14,10 @@
         android:background="@color/colorSurface"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="12dp"
+        android:paddingStart="16dp"
         android:paddingEnd="8dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,62 +26,159 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_role"
-            android:textColor="@color/colorOnSurface"
-            android:textSize="13sp" />
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="12sp"
+            android:letterSpacing="0.08" />
 
-        <Spinner
-            android:id="@+id/spinnerRole"
+        <TextView
+            android:id="@+id/tvCurrentRole"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:drawableEnd="@drawable/ic_dropdown"
+            android:drawablePadding="4dp"
+            android:text="助手"
+            android:textColor="@color/colorGold"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif-light"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="4dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNewChat"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/new_chat"
+            android:textColor="@color/colorTextSecondary"
             android:textSize="12sp" />
 
     </LinearLayout>
+
+    <!-- Thin gold divider under role bar -->
+    <View
+        android:id="@+id/roleDivider"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="@color/colorDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/roleBar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@id/inputRow"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/attachmentPreview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/roleBar" />
+        app:layout_constraintTop_toBottomOf="@id/roleDivider" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminateTint="@color/colorGold"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/inputRow"
+        app:layout_constraintBottom_toTopOf="@id/attachmentPreview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/roleBar" />
+        app:layout_constraintTop_toBottomOf="@id/roleDivider" />
 
+    <!-- Attachment preview strip -->
+    <LinearLayout
+        android:id="@+id/attachmentPreview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSurface"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/inputDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/ivPreviewThumb"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:scaleType="centerCrop"
+            android:background="@color/colorCard"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvPreviewName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:ellipsize="middle"
+            android:maxLines="1"
+            android:textColor="@color/colorGoldLight"
+            android:textSize="12sp" />
+
+        <ImageButton
+            android:id="@+id/btnRemoveAttachment"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:tint="@color/colorTextSecondary" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/inputDivider"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="@color/colorDivider"
+        app:layout_constraintBottom_toTopOf="@id/inputRow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Input row -->
     <LinearLayout
         android:id="@+id/inputRow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/colorSurface"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="8dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnAttach"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_attach"
+            android:contentDescription="@string/attach" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginEnd="8dp">
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            style="@style/Widget.GrokChat.TextInput">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etInput"
@@ -89,15 +186,21 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_message"
                 android:inputType="textMultiLine"
-                android:maxLines="4" />
+                android:maxLines="4"
+                android:textColor="@color/colorTextPrimary"
+                android:textColorHint="@color/colorTextSecondary"
+                android:background="@android:color/transparent" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <ImageButton
             android:id="@+id/btnSend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/send" />
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_btn_send"
+            android:src="@drawable/ic_send"
+            android:padding="12dp"
+            android:contentDescription="@string/send" />
 
     </LinearLayout>
 

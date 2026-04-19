@@ -24,15 +24,13 @@ class SettingsFragment : Fragment() {
         b.etApiKey.setText(Prefs.getApiKey(ctx))
 
         val endpointLabels = Prefs.ENDPOINTS.map { it.second }
-        b.spinnerEndpoint.adapter = ArrayAdapter(ctx,
-            android.R.layout.simple_spinner_item, endpointLabels)
-            .also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+        b.spinnerEndpoint.adapter = ArrayAdapter(ctx, R.layout.item_spinner, endpointLabels)
+            .also { it.setDropDownViewResource(R.layout.item_spinner) }
         val epIdx = Prefs.ENDPOINTS.indexOfFirst { it.first == Prefs.getEndpoint(ctx) }.coerceAtLeast(0)
         b.spinnerEndpoint.setSelection(epIdx)
 
-        b.spinnerModel.adapter = ArrayAdapter(ctx,
-            android.R.layout.simple_spinner_item, Prefs.MODELS)
-            .also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+        b.spinnerModel.adapter = ArrayAdapter(ctx, R.layout.item_spinner, Prefs.MODELS)
+            .also { it.setDropDownViewResource(R.layout.item_spinner) }
         val mdIdx = Prefs.MODELS.indexOf(Prefs.getModel(ctx)).coerceAtLeast(0)
         b.spinnerModel.setSelection(mdIdx)
 
