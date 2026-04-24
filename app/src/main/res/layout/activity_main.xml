@@ -17,13 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorBackground"
-            app:titleTextAppearance="@style/GrokChat.ToolbarTitle" />
+            app:titleTextAppearance="@style/GrokChat.ToolbarTitle"
+            app:navigationIconTint="@color/colorGold" />
 
-        <!-- Thin gold divider -->
+        <!-- Hairline gold divider — signature Porsche precision line -->
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/colorGoldDark" />
+            android:layout_height="1dp"
+            android:background="@color/colorBorderSubtle" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

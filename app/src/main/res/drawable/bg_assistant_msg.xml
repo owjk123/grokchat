@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  IBM Carbon left-accent pattern: 3dp gold bar reveals through layer offset.
+  Outer layer: gold fill with subtle rounding.
+  Inner layer: dark card shifted 3dp right, leaving the gold bar visible.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#C9A96E" />
+            <corners
+                android:topLeftRadius="4dp"
+                android:bottomLeftRadius="4dp"
+                android:topRightRadius="10dp"
+                android:bottomRightRadius="10dp" />
+        </shape>
+    </item>
+    <item android:left="3dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#262626" />
+            <corners
+                android:topLeftRadius="0dp"
+                android:bottomLeftRadius="0dp"
+                android:topRightRadius="10dp"
+                android:bottomRightRadius="10dp" />
+        </shape>
+    </item>
+</layer-list>

@@ -8,76 +8,95 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_role_name"
-            android:textColor="@color/colorGold"
-            android:textSize="11sp"
-            android:letterSpacing="0.12"
-            android:textAllCaps="true" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.GrokChat.TextInput"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="24dp">
+            android:orientation="vertical"
+            android:padding="24dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etRoleName"
-                android:layout_width="match_parent"
+            <TextView
+                style="@style/GrokChat.Label"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_role_name"
-                android:inputType="text"
-                android:singleLine="true"
-                android:textColor="@color/colorTextPrimary"
-                android:textColorHint="@color/colorTextSecondary"
-                android:background="@android:color/transparent" />
+                android:text="@string/label_role_name"
+                android:layout_marginBottom="10dp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_system_prompt"
-            android:textColor="@color/colorGold"
-            android:textSize="11sp"
-            android:letterSpacing="0.12"
-            android:textAllCaps="true" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.GrokChat.TextInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="32dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSystemPrompt"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.GrokChat.TextInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_system_prompt"
-                android:inputType="textMultiLine"
-                android:lines="5"
-                android:gravity="top|start"
-                android:textColor="@color/colorTextPrimary"
-                android:textColorHint="@color/colorTextSecondary"
-                android:background="@android:color/transparent" />
+                android:layout_height="wrap_content">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etRoleName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_role_name"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textColorHint="@color/colorTextSecondary"
+                    android:textSize="14sp"
+                    android:background="@android:color/transparent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSaveRole"
-            style="@style/Widget.GrokChat.GoldButton"
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/colorBorderSubtle" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:text="@string/save"
-            android:letterSpacing="0.1"
-            android:textAllCaps="true" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                style="@style/GrokChat.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_system_prompt"
+                android:layout_marginBottom="10dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.GrokChat.TextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etSystemPrompt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_system_prompt"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:gravity="top|start"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textColorHint="@color/colorTextSecondary"
+                    android:textSize="14sp"
+                    android:background="@android:color/transparent" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/colorBorderSubtle" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSaveRole"
+                style="@style/Widget.GrokChat.GoldButton"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="@string/save" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

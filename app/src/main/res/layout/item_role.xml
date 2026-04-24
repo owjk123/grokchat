@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Role list item: Carbon-style.
+  Left gold accent bar (3dp) echoes the assistant message pattern for visual consistency.
+  Clean minimal layout with generous 24dp start padding.
+-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:background="?attr/selectableItemBackground"
     android:gravity="center_vertical"
-    android:minHeight="60dp"
-    android:orientation="horizontal"
-    android:paddingStart="20dp"
-    android:paddingEnd="8dp">
+    android:orientation="horizontal">
 
+    <!-- 3dp gold accent (same language as assistant message) -->
     <View
-        android:layout_width="2dp"
-        android:layout_height="20dp"
-        android:background="@color/colorGold"
-        android:layout_marginEnd="14dp" />
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorGoldDim" />
 
     <TextView
         android:id="@+id/tvRoleName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_marginStart="20dp"
         android:fontFamily="sans-serif-light"
-        android:letterSpacing="0.05"
+        android:letterSpacing="0.04"
         android:textColor="@color/colorTextPrimary"
         android:textSize="16sp" />
 
@@ -39,9 +42,10 @@
         android:id="@+id/btnDelete"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/delete"
         android:src="@android:drawable/ic_menu_delete"
-        android:tint="#8B3A3A" />
+        android:tint="#7A3535" />
 
 </LinearLayout>

@@ -6,18 +6,16 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
 
-    <!-- Role bar -->
+    <!-- ── Role bar ─────────────────────────────────────────────────────── -->
     <LinearLayout
         android:id="@+id/roleBar"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:background="@color/colorSurface"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="16dp"
+        android:paddingStart="20dp"
         android:paddingEnd="8dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,26 +24,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_role"
-            android:textColor="@color/colorTextSecondary"
-            android:textSize="12sp"
-            android:letterSpacing="0.08" />
+            android:textColor="@color/colorTextDisabled"
+            android:textSize="10sp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.16"
+            android:textAllCaps="true" />
 
         <TextView
             android:id="@+id/tvCurrentRole"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="10dp"
             android:drawableEnd="@drawable/ic_dropdown"
-            android:drawablePadding="4dp"
+            android:drawablePadding="6dp"
             android:text="助手"
             android:textColor="@color/colorGold"
             android:textSize="14sp"
             android:fontFamily="sans-serif-light"
+            android:letterSpacing="0.04"
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="4dp" />
+
+        <!-- Gold dot separator -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="16dp"
+            android:background="@color/colorBorderSubtle"
+            android:layout_marginEnd="4dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNewChat"
@@ -54,28 +62,29 @@
             android:layout_height="wrap_content"
             android:text="@string/new_chat"
             android:textColor="@color/colorTextSecondary"
-            android:textSize="12sp" />
+            android:textSize="11sp"
+            android:letterSpacing="0.06" />
 
     </LinearLayout>
 
-    <!-- Thin gold divider under role bar -->
     <View
         android:id="@+id/roleDivider"
         android:layout_width="0dp"
-        android:layout_height="0.5dp"
-        android:background="@color/colorDivider"
+        android:layout_height="1dp"
+        android:background="@color/colorBorderSubtle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/roleBar" />
 
+    <!-- ── Message list ──────────────────────────────────────────────────── -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:paddingTop="12dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="16dp"
         android:paddingBottom="8dp"
         app:layout_constraintBottom_toTopOf="@id/attachmentPreview"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,8 +93,8 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:indeterminateTint="@color/colorGold"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/attachmentPreview"
@@ -93,18 +102,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/roleDivider" />
 
-    <!-- Attachment preview strip -->
+    <!-- ── Attachment preview strip ─────────────────────────────────────── -->
     <LinearLayout
         android:id="@+id/attachmentPreview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorSurface"
+        android:background="@color/colorElevated"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="12dp"
+        android:paddingStart="20dp"
         android:paddingEnd="8dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/inputDivider"
         app:layout_constraintEnd_toEndOf="parent"
@@ -112,8 +121,8 @@
 
         <ImageView
             android:id="@+id/ivPreviewThumb"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:scaleType="centerCrop"
             android:background="@color/colorCard"
             android:visibility="gone" />
@@ -123,11 +132,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="10dp"
             android:ellipsize="middle"
             android:maxLines="1"
             android:textColor="@color/colorGoldLight"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:fontFamily="sans-serif-light" />
 
         <ImageButton
             android:id="@+id/btnRemoveAttachment"
@@ -142,13 +152,13 @@
     <View
         android:id="@+id/inputDivider"
         android:layout_width="0dp"
-        android:layout_height="0.5dp"
-        android:background="@color/colorDivider"
+        android:layout_height="1dp"
+        android:background="@color/colorBorderSubtle"
         app:layout_constraintBottom_toTopOf="@id/inputRow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Input row -->
+    <!-- ── Input row ─────────────────────────────────────────────────────── -->
     <LinearLayout
         android:id="@+id/inputRow"
         android:layout_width="0dp"
@@ -157,7 +167,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="8dp"
-        android:paddingEnd="8dp"
+        android:paddingEnd="12dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -177,7 +187,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="4dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="10dp"
             style="@style/Widget.GrokChat.TextInput">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -189,6 +199,7 @@
                 android:maxLines="4"
                 android:textColor="@color/colorTextPrimary"
                 android:textColorHint="@color/colorTextSecondary"
+                android:textSize="15sp"
                 android:background="@android:color/transparent" />
 
         </com.google.android.material.textfield.TextInputLayout>

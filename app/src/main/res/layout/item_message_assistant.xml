@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Assistant message: left-aligned with Carbon-style gold left-accent bar.
+  paddingStart 18dp = 3dp (gold bar) + 15dp (breathing room).
+  Right margin = 64dp limits width to ~72% screen.
+-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="start"
     android:orientation="horizontal"
-    android:paddingStart="4dp"
-    android:paddingEnd="52dp"
-    android:paddingTop="3dp"
-    android:paddingBottom="3dp">
+    android:paddingStart="0dp"
+    android:paddingEnd="64dp"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp">
 
     <TextView
         android:id="@+id/tvContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bubble_assistant"
-        android:lineSpacingMultiplier="1.3"
-        android:paddingStart="14dp"
+        android:background="@drawable/bg_assistant_msg"
+        android:paddingStart="18dp"
         android:paddingEnd="14dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="15sp" />
+        android:textColor="#F4F4F4"
+        android:textSize="15sp"
+        android:fontFamily="sans-serif"
+        android:lineSpacingMultiplier="1.4" />
 
 </LinearLayout>
