@@ -6,54 +6,62 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
 
-    <!-- ── Role bar ─────────────────────────────────────────────────────── -->
+    <!-- ── Role header (prominent avatar display) ─────────────────────── -->
     <LinearLayout
-        android:id="@+id/roleBar"
+        android:id="@+id/roleHeader"
         android:layout_width="0dp"
-        android:layout_height="44dp"
+        android:layout_height="72dp"
         android:background="@color/colorSurface"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="20dp"
         android:paddingEnd="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- Circular emoji avatar -->
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/select_role"
-            android:textColor="@color/colorTextDisabled"
-            android:textSize="10sp"
-            android:fontFamily="sans-serif-medium"
-            android:letterSpacing="0.16"
-            android:textAllCaps="true" />
+            android:id="@+id/tvAvatar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_avatar_circle"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="-4dp"
+            android:textSize="24sp"
+            android:text="🤖" />
 
-        <TextView
-            android:id="@+id/tvCurrentRole"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="10dp"
-            android:drawableEnd="@drawable/ic_dropdown"
-            android:drawablePadding="6dp"
-            android:text="助手"
-            android:textColor="@color/colorGold"
-            android:textSize="14sp"
-            android:fontFamily="sans-serif-light"
-            android:letterSpacing="0.04"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="4dp" />
+            android:layout_marginStart="14dp"
+            android:orientation="vertical">
 
-        <!-- Gold dot separator -->
-        <View
-            android:layout_width="1dp"
-            android:layout_height="16dp"
-            android:background="@color/colorBorderSubtle"
-            android:layout_marginEnd="4dp" />
+            <TextView
+                style="@style/GrokChat.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/current_role" />
+
+            <TextView
+                android:id="@+id/tvCurrentRole"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:drawableEnd="@drawable/ic_dropdown"
+                android:drawablePadding="8dp"
+                android:text="助手"
+                android:textColor="@color/colorGold"
+                android:textSize="17sp"
+                android:fontFamily="sans-serif-light"
+                android:letterSpacing="0.04" />
+
+        </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNewChat"
@@ -74,7 +82,7 @@
         android:background="@color/colorBorderSubtle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/roleBar" />
+        app:layout_constraintTop_toBottomOf="@id/roleHeader" />
 
     <!-- ── Message list ──────────────────────────────────────────────────── -->
     <androidx.recyclerview.widget.RecyclerView
@@ -101,6 +109,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/roleDivider" />
+
+    <!-- ── New-message chip (smart scroll indicator) ────────────────────── -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/chipNewMessage"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/colorCard"
+        android:text="@string/new_message_chip"
+        android:textColor="@color/colorGold"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        android:letterSpacing="0.04"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:cornerRadius="16dp"
+        app:strokeColor="@color/colorBorderSubtle"
+        app:strokeWidth="1dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/attachmentPreview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <!-- ── Attachment preview strip ─────────────────────────────────────── -->
     <LinearLayout

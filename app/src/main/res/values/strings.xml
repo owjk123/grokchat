@@ -12,8 +12,10 @@
     <string name="action_settings">设置</string>
     <string name="action_roles">角色</string>
     <string name="label_role_name">角色名称</string>
+    <string name="label_role_avatar">角色表情</string>
     <string name="label_system_prompt">系统提示词</string>
     <string name="hint_role_name">例：代码助手</string>
+    <string name="hint_role_avatar">例：🤖</string>
     <string name="hint_system_prompt">例：你是一位专业的软件工程师…</string>
     <string name="add_role">添加角色</string>
     <string name="edit_role">编辑角色</string>
@@ -22,13 +24,25 @@
     <string name="edit">编辑</string>
     <string name="roles_title">角色管理</string>
     <string name="select_role">角色</string>
+    <string name="current_role">当前角色</string>
     <string name="new_chat">新对话</string>
+    <string name="confirm_new_chat">开始新对话将清空当前聊天记录。</string>
     <string name="attach">附件</string>
     <string name="attach_image">图片</string>
     <string name="attach_file">文本文件</string>
     <string name="delete_role_title">删除角色</string>
+    <string name="delete_role_message">确认删除「%1$s」？</string>
     <string name="role_name_empty">角色名称不能为空</string>
     <string name="please_set_api_key">请先在「设置」中配置 API 密钥</string>
     <string name="attachment_too_large">文件过大，请选择 50KB 以内的文本文件</string>
     <string name="unsupported_file">不支持该文件类型，请选择图片或文本文件</string>
+    <string name="new_message_chip">↓ 新消息</string>
+    <string name="msg_copied">已复制</string>
+    <string name="error_auth">API 密钥无效，请检查「设置」</string>
+    <string name="error_rate_limit">请求过于频繁，请稍后再试</string>
+    <string name="error_server">服务器错误（%1$d），请稍后再试</string>
+    <string name="error_network">网络不可用，请检查连接</string>
+    <string name="error_no_network">网络不可用，请检查连接</string>
+    <string name="error_parse">响应解析失败</string>
+    <string name="error_unknown">发生未知错误</string>
 </resources>

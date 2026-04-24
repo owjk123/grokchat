@@ -54,15 +54,17 @@ class RolesFragment : Fragment() {
 
     private fun confirmDelete(role: Role) {
         AlertDialog.Builder(requireContext())
-            .setTitle("Delete Role")
-            .setMessage("Delete \"${role.name}\"?")
-            .setPositiveButton("Delete") { _, _ ->
+            .setTitle(getString(R.string.delete_role_title))
+            .setMessage(getString(R.string.delete_role_message, role.name))
+            .setPositiveButton(getString(R.string.delete)) { _, _ ->
                 val ctx = requireContext()
                 val roles = Prefs.getRoles(ctx).also { it.removeAll { r -> r.id == role.id } }
                 Prefs.saveRoles(ctx, roles)
+                // Clear orphan active-role pref if the deleted role was active
+                if (Prefs.getActiveRoleId(ctx) == role.id) Prefs.clearActiveRoleId(ctx)
                 loadRoles()
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 

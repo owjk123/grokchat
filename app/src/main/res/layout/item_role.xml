@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Role list item: Carbon-style.
-  Left gold accent bar (3dp) echoes the assistant message pattern for visual consistency.
-  Clean minimal layout with generous 24dp start padding.
+  Role list item: Carbon-style with prominent emoji avatar.
+  Left gold accent bar (3dp) + 48dp circular avatar + role name + actions.
 -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="72dp"
     android:background="?attr/selectableItemBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal">
@@ -18,12 +17,25 @@
         android:layout_height="match_parent"
         android:background="@color/colorGoldDim" />
 
+    <!-- Circular emoji avatar -->
+    <TextView
+        android:id="@+id/tvAvatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/bg_avatar_circle"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="-4dp"
+        android:textSize="24sp"
+        android:text="🎭" />
+
     <TextView
         android:id="@+id/tvRoleName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="14dp"
         android:fontFamily="sans-serif-light"
         android:letterSpacing="0.04"
         android:textColor="@color/colorTextPrimary"
