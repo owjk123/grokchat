@@ -98,8 +98,8 @@
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/attach_file"
-            android:src="@android:drawable/ic_menu_attachment"
-            android:tint="@color/colorPrimary" />
+            android:src="@drawable/ic_attachment"
+            app:tint="@color/colorPrimary" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
