@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GrokChat</string>
+    <string name="app_name">GrokChat Pro</string>
     <string name="send">Send</string>
     <string name="save">Save</string>
     <string name="hint_message">Type a message…</string>
@@ -21,4 +21,9 @@
     <string name="roles_title">Manage Roles</string>
     <string name="select_role">Role:</string>
     <string name="new_chat">New Chat</string>
+    <string name="attach_file">Attach File</string>
+    <string name="attached_image">Attached image</string>
+    <string name="new_messages">↓ New messages</string>
+    <string name="label_avatar">Avatar Emoji</string>
+    <string name="hint_avatar">e.g. 🤖</string>
 </resources>

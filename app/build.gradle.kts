@@ -4,15 +4,15 @@ plugins {
 }
 
 android {
-    namespace = "com.grokchat"
+    namespace = "com.grokchat.pro"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.grokchat"
+        applicationId = "com.grokchat.pro"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "2.0"
     }
 
     buildTypes {
@@ -50,5 +50,6 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-service:2.7.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }

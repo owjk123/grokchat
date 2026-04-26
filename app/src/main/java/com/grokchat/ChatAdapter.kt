@@ -1,7 +1,11 @@
-package com.grokchat
+package com.grokchat.pro
 
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +21,12 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(DIFF) {
         }
     }
 
+    var roleAvatar: String = "🤖"
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
     override fun getItemViewType(position: Int) =
         if (getItem(position).role == "user") 0 else 1
 
@@ -31,8 +41,46 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(DIFF) {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val msg = getItem(position)
         when (holder) {
-            is UserVH -> holder.binding.tvContent.text = msg.content
-            is AssistantVH -> holder.binding.tvContent.text = msg.content
+            is UserVH -> {
+                holder.binding.tvContent.text = msg.content
+                // User doesn't need avatar display in bubble
+                if (msg.imageBase64 != null) {
+                    holder.binding.ivImage.visibility = View.VISIBLE
+                    try {
+                        val bytes = Base64.decode(msg.imageBase64, Base64.DEFAULT)
+                        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                        holder.binding.ivImage.setImageBitmap(bitmap)
+                    } catch (e: Exception) {
+                        holder.binding.ivImage.visibility = View.GONE
+                    }
+                } else {
+                    holder.binding.ivImage.visibility = View.GONE
+                }
+                // Set bubble width to wrap content
+                (holder.binding.tvContent.layoutParams as? ConstraintLayout.LayoutParams)?.let {
+                    it.width = ConstraintLayout.LayoutParams.WRAP_CONTENT
+                }
+            }
+            is AssistantVH -> {
+                holder.binding.tvContent.text = msg.content
+                holder.binding.tvAvatar.text = roleAvatar
+                if (msg.imageBase64 != null) {
+                    holder.binding.ivImage.visibility = View.VISIBLE
+                    try {
+                        val bytes = Base64.decode(msg.imageBase64, Base64.DEFAULT)
+                        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                        holder.binding.ivImage.setImageBitmap(bitmap)
+                    } catch (e: Exception) {
+                        holder.binding.ivImage.visibility = View.GONE
+                    }
+                } else {
+                    holder.binding.ivImage.visibility = View.GONE
+                }
+                // Set bubble width to wrap content
+                (holder.binding.tvContent.layoutParams as? ConstraintLayout.LayoutParams)?.let {
+                    it.width = ConstraintLayout.LayoutParams.WRAP_CONTENT
+                }
+            }
         }
     }
 

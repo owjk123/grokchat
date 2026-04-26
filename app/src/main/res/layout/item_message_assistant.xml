@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="start"
@@ -8,13 +9,41 @@
     android:padding="4dp">
 
     <TextView
-        android:id="@+id/tvContent"
+        android:id="@+id/tvAvatar"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/bubble_avatar_bg"
+        tools:text="🤖" />
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bubble_assistant"
-        android:maxWidth="280dp"
-        android:padding="10dp"
-        android:textColor="@color/colorOnSurface"
-        android:textSize="15sp" />
+        android:orientation="vertical"
+        android:maxWidth="280dp">
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bubble_assistant"
+            android:padding="10dp"
+            android:textColor="@color/colorOnSurface"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="200dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:visibility="gone"
+            android:layout_marginTop="4dp"
+            android:contentDescription="@string/attached_image" />
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.grokchat
+package com.grokchat.pro
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -33,12 +33,14 @@ class EditRoleFragment : Fragment() {
         if (roleId != null) {
             val existing = Prefs.getRoles(ctx).find { it.id == roleId }
             if (existing != null) {
+                b.etAvatar.setText(existing.avatar)
                 b.etRoleName.setText(existing.name)
                 b.etSystemPrompt.setText(existing.systemPrompt)
             }
         }
 
         b.btnSaveRole.setOnClickListener {
+            val avatar = b.etAvatar.text.toString().trim().takeIf { it.isNotEmpty() } ?: "🤖"
             val name = b.etRoleName.text.toString().trim()
             if (name.isEmpty()) {
                 Toast.makeText(ctx, "Role name cannot be empty", Toast.LENGTH_SHORT).show()
@@ -49,9 +51,9 @@ class EditRoleFragment : Fragment() {
 
             if (roleId != null) {
                 val idx = roles.indexOfFirst { it.id == roleId }
-                if (idx >= 0) roles[idx] = Role(roleId, name, systemPrompt)
+                if (idx >= 0) roles[idx] = Role(roleId, name, avatar, systemPrompt)
             } else {
-                roles.add(Role(name = name, systemPrompt = systemPrompt))
+                roles.add(Role(name = name, avatar = avatar, systemPrompt = systemPrompt))
             }
             Prefs.saveRoles(ctx, roles)
             parentFragmentManager.popBackStack()

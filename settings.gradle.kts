@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "GrokChat"
+rootProject.name = "GrokChatPro"
 include(":app")

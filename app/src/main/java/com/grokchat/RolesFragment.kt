@@ -1,4 +1,4 @@
-package com.grokchat
+package com.grokchat.pro
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -33,6 +33,9 @@ class RolesFragment : Fragment() {
             addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         }
         b.fabAddRole.setOnClickListener { openEditRole(null) }
+        b.toolbarRoles.setNavigationOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
         loadRoles()
     }
 

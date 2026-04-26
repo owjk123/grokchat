@@ -1,4 +1,4 @@
-package com.grokchat
+package com.grokchat.pro
 
 import android.os.Bundle
 import android.view.Menu
@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         b = ActivityMainBinding.inflate(layoutInflater)
         setContentView(b.root)
         setSupportActionBar(b.toolbar)
+        supportActionBar?.title = getString(R.string.app_name)
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {

@@ -1,4 +1,4 @@
-package com.grokchat
+package com.grokchat.pro
 
 import android.content.Context
 import org.json.JSONArray
@@ -17,9 +17,9 @@ object Prefs {
     val MODELS = listOf("grok-4.20-beta", "grok-3", "grok-2-latest")
 
     val DEFAULT_ROLES = listOf(
-        Role(name = "Assistant",     systemPrompt = ""),
-        Role(name = "Coding Helper", systemPrompt = "You are an expert software engineer. Help with coding tasks concisely."),
-        Role(name = "Translator",    systemPrompt = "You are a professional translator. Translate text as requested, preserving tone.")
+        Role(name = "Assistant",     avatar = "🤖", systemPrompt = ""),
+        Role(name = "Coding Helper", avatar = "💻", systemPrompt = "You are an expert software engineer. Help with coding tasks concisely."),
+        Role(name = "Translator",    avatar = "🌐", systemPrompt = "You are a professional translator. Translate text as requested, preserving tone.")
     )
 
     private fun prefs(ctx: Context) =
@@ -42,7 +42,12 @@ object Prefs {
             val arr = JSONArray(json)
             (0 until arr.length()).map {
                 val o = arr.getJSONObject(it)
-                Role(o.getString("id"), o.getString("name"), o.getString("systemPrompt"))
+                Role(
+                    id = o.getString("id"),
+                    name = o.getString("name"),
+                    avatar = o.optString("avatar", "🤖"),
+                    systemPrompt = o.getString("systemPrompt")
+                )
             }.toMutableList()
         } catch (e: Exception) {
             DEFAULT_ROLES.toMutableList()
@@ -55,6 +60,7 @@ object Prefs {
             arr.put(JSONObject().apply {
                 put("id", it.id)
                 put("name", it.name)
+                put("avatar", it.avatar)
                 put("systemPrompt", it.systemPrompt)
             })
         }

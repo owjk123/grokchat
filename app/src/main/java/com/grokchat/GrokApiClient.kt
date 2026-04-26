@@ -1,4 +1,4 @@
-package com.grokchat
+package com.grokchat.pro
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -31,7 +31,23 @@ object GrokApiClient {
                     messages.forEach { msg ->
                         put(JSONObject().apply {
                             put("role", msg.role)
-                            put("content", msg.content)
+                            // Support image content for vision-capable models
+                            if (!msg.imageBase64.isNullOrEmpty()) {
+                                put("content", JSONArray().apply {
+                                    put(JSONObject().apply {
+                                        put("type", "text")
+                                        put("text", msg.content)
+                                    })
+                                    put(JSONObject().apply {
+                                        put("type", "image_url")
+                                        put("image_url", JSONObject().apply {
+                                            put("url", "data:image/jpeg;base64,${msg.imageBase64}")
+                                        })
+                                    })
+                                })
+                            } else {
+                                put("content", msg.content)
+                            }
                         })
                     }
                 })

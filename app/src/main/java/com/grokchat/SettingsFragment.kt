@@ -1,4 +1,4 @@
-package com.grokchat
+package com.grokchat.pro
 
 import android.os.Bundle
 import android.view.LayoutInflater
