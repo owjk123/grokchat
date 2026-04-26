@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Palette: IBM Carbon Gray-100 dark base + warm gold accent -->
 <resources>
-    <color name="colorPrimary">#1A73E8</color>
-    <color name="colorPrimaryDark">#1557B0</color>
-    <color name="colorAccent">#03A9F4</color>
-    <color name="colorSurface">#F1F3F4</color>
-    <color name="colorOnSurface">#202124</color>
-    <color name="colorOutline">#DADCE0</color>
+    <!-- Backgrounds (Carbon Gray-100 hierarchy) -->
+    <color name="colorBackground">#161616</color>
+    <color name="colorSurface">#1F1F1F</color>
+    <color name="colorCard">#262626</color>
+    <color name="colorElevated">#323232</color>
+
+    <!-- Gold accent (Porsche-style single brand color) -->
+    <color name="colorGold">#C9A96E</color>
+    <color name="colorGoldLight">#E5CC95</color>
+    <color name="colorGoldDark">#8B6B1E</color>
+    <color name="colorGoldDim">#3D3020</color>
+
+    <!-- Text (Carbon text tokens) -->
+    <color name="colorTextPrimary">#F4F4F4</color>
+    <color name="colorTextSecondary">#8D8D8D</color>
+    <color name="colorTextDisabled">#525252</color>
+
+    <!-- Borders (Carbon border tokens) -->
+    <color name="colorBorderSubtle">#393939</color>
+    <color name="colorBorderStrong">#6F6F6F</color>
+    <color name="colorDivider">#2A2A2A</color>
+
+    <!-- Semantic -->
+    <color name="colorError">#FA4D56</color>
     <color name="white">#FFFFFF</color>
+
+    <!-- Legacy aliases required by drawables / existing code -->
+    <color name="colorPrimary">#C9A96E</color>
+    <color name="colorPrimaryDark">#8B6B1E</color>
+    <color name="colorAccent">#C9A96E</color>
+    <color name="colorOnSurface">#F4F4F4</color>
+    <color name="colorOutline">#393939</color>
 </resources>

@@ -35,23 +35,25 @@ class EditRoleFragment : Fragment() {
             if (existing != null) {
                 b.etRoleName.setText(existing.name)
                 b.etSystemPrompt.setText(existing.systemPrompt)
+                b.etRoleAvatar.setText(existing.avatar)
             }
         }
 
         b.btnSaveRole.setOnClickListener {
             val name = b.etRoleName.text.toString().trim()
             if (name.isEmpty()) {
-                Toast.makeText(ctx, "Role name cannot be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(ctx, getString(R.string.role_name_empty), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             val systemPrompt = b.etSystemPrompt.text.toString().trim()
+            val avatar = b.etRoleAvatar.text.toString().trim().ifEmpty { "🎭" }
             val roles = Prefs.getRoles(ctx)
 
             if (roleId != null) {
                 val idx = roles.indexOfFirst { it.id == roleId }
-                if (idx >= 0) roles[idx] = Role(roleId, name, systemPrompt)
+                if (idx >= 0) roles[idx] = Role(roleId, name, systemPrompt, avatar)
             } else {
-                roles.add(Role(name = name, systemPrompt = systemPrompt))
+                roles.add(Role(name = name, systemPrompt = systemPrompt, avatar = avatar))
             }
             Prefs.saveRoles(ctx, roles)
             parentFragmentManager.popBackStack()

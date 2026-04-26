@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Data extraction rules (API 31+).
+  Cloud backup: exclude SharedPreferences (contains API key).
+  Device-to-device transfer: include everything (user-initiated, safer).
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="sharedpref" path="grokchat_prefs.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <!-- Include all app data for device-to-device transfer -->
+    </device-transfer>
+</data-extraction-rules>

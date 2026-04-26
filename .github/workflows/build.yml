@@ -27,7 +27,33 @@ jobs:
           gradle-version: '8.4'
 
       - name: Build debug APK
-        run: gradle assembleDebug --no-daemon --stacktrace
+        id: build
+        run: |
+          set -o pipefail
+          gradle assembleDebug --no-daemon --stacktrace 2>&1 | tee /tmp/build.log
+
+      - name: Surface build errors as annotations
+        if: failure() && steps.build.outcome == 'failure'
+        run: |
+          echo "=== Tail of build.log ==="
+          tail -200 /tmp/build.log || true
+          echo "=== Error excerpts ==="
+          # Emit each interesting line as a workflow annotation so it surfaces in the API
+          grep -nE "(^e: )|(error: )|(\\.kt:[0-9]+:[0-9]+: error)|(FAILED)|(Caused by:)|(AAPT:)|(> Task .*FAILED)|(Could not resolve)|(Unresolved reference)|(\\.xml:[0-9]+:)|(Execution failed for task)" /tmp/build.log \
+            | head -80 \
+            | while IFS= read -r line; do
+                # GitHub annotation: escape % \r \n
+                msg=$(printf '%s' "$line" | sed -e 's/%/%25/g' -e 's/\r/%0D/g')
+                echo "::error::${msg}"
+              done
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: /tmp/build.log
+          retention-days: 7
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4

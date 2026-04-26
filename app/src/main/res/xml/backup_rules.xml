@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Legacy backup rules (API <= 30).
+  Exclude the SharedPreferences file that holds the API key.
+  Everything else (chat history in filesDir, images) is backed up.
+-->
+<full-backup-content>
+    <exclude domain="sharedpref" path="grokchat_prefs.xml" />
+</full-backup-content>

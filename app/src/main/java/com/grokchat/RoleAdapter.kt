@@ -21,6 +21,7 @@ class RoleAdapter(
 
     inner class VH(val binding: ItemRoleBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(role: Role) {
+            binding.tvAvatar.text = role.avatar
             binding.tvRoleName.text = role.name
             binding.btnEdit.setOnClickListener { onEdit(role) }
             binding.btnDelete.setOnClickListener { onDelete(role) }
