@@ -55,12 +55,13 @@ class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(DIFF) {
                 binding.ivAttachment.visibility = View.VISIBLE
                 binding.ivAttachment.setImageBitmap(null)
                 val path = msg.imagePath
+                binding.ivAttachment.tag = path  // stale-load guard
                 val owner = itemView.findViewTreeLifecycleOwner()
                 if (owner != null) {
                     owner.lifecycleScope.launch {
                         val bmp = withContext(Dispatchers.IO) { decodeSampled(path, 1080) }
-                        // Guard: holder may have been rebound to a different message
-                        if (bindingAdapterPosition != RecyclerView.NO_POSITION && bmp != null) {
+                        // Guard: view still bound to the same image path
+                        if (bmp != null && binding.ivAttachment.tag == path) {
                             binding.ivAttachment.setImageBitmap(bmp)
                         }
                     }
