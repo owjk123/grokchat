@@ -9,8 +9,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.grokchat.databinding.ItemMessageAssistantBinding
-import com.grokchat.databinding.ItemMessageUserBinding
+import com.grokchat.pro.databinding.ItemMessageAssistantBinding
+import com.grokchat.pro.databinding.ItemMessageUserBinding
 
 class ChatAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(DIFF) {
 

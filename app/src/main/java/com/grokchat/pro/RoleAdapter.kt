@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.grokchat.databinding.ItemRoleBinding
+import com.grokchat.pro.databinding.ItemRoleBinding
 
 class RoleAdapter(
     private val onEdit: (Role) -> Unit,

@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.grokchat.databinding.FragmentRolesBinding
+import com.grokchat.pro.databinding.FragmentRolesBinding
 
 class RolesFragment : Fragment() {
 

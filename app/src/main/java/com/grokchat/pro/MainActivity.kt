@@ -5,7 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
-import com.grokchat.databinding.ActivityMainBinding
+import com.grokchat.pro.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
