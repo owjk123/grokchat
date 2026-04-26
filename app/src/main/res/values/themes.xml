@@ -9,7 +9,6 @@
         <!-- Surface / background -->
         <item name="colorSurface">@color/colorCard</item>
         <item name="colorOnSurface">@color/colorTextPrimary</item>
-        <item name="colorBackground">@color/colorBackground</item>
         <item name="android:colorBackground">@color/colorBackground</item>
         <item name="android:windowBackground">@color/colorBackground</item>
         <!-- System bars -->
@@ -81,7 +80,7 @@
 
     <!-- ── Typography ────────────────────────────────────────────────────── -->
     <!-- Porsche-style: uppercase, light weight, tracked letterSpacing -->
-    <style name="GrokChat.ToolbarTitle">
+    <style name="GrokChat.ToolbarTitle" parent="">
         <item name="android:textColor">@color/colorGold</item>
         <item name="android:textSize">15sp</item>
         <item name="android:fontFamily">sans-serif-light</item>
@@ -90,7 +89,7 @@
     </style>
 
     <!-- Small eyebrow label (section headers in forms) -->
-    <style name="GrokChat.Label">
+    <style name="GrokChat.Label" parent="">
         <item name="android:textColor">@color/colorGold</item>
         <item name="android:textSize">10sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
@@ -99,7 +98,7 @@
     </style>
 
     <!-- Body text for messages -->
-    <style name="GrokChat.MessageText">
+    <style name="GrokChat.MessageText" parent="">
         <item name="android:textSize">15sp</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:lineSpacingMultiplier">1.4</item>
